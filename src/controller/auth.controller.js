@@ -27,23 +27,6 @@ const register = async function(req,res){
 		return;
 	}
 
-	try {
-		if (req.body.user_pw.lenght < 8 || req.body.user_pw.length > 12) {
-			res.send({
-				"Failed": "Error occurred",
-				"error": "Password must be between 8 and 12 characters"
-			})
-			return;
-		}
-	} catch (e) {
-		res.send({
-			"code":500,
-			"Failed": "Error occurred",
-			"error": e
-		})
-		return;
-	}
-
 	const saltRounds = 10;
 	const password = req.body.user_pw;
 	var encryptedPassword; 
