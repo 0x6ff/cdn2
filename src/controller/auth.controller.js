@@ -20,18 +20,28 @@ database: DB
 const register = async function(req,res){
 	if (req.body.reg_token != REGISTER_TOKEN) {
 		res.send({
-			"code":400,
-			"Failed":"Error occurred",
-			"error" :"Wrong register token!"
+			"code":500,
+			"Failed": "Error occurred",
+			"error": "Wrong register token!"
 		})
+		return;
 	}
 
-	if (req.body.user_pw.lenght < 8 || req.body.user_pw.length > 12) {
+	try {
+		if (req.body.user_pw.lenght < 8 || req.body.user_pw.length > 12) {
+			res.send({
+				"Failed": "Error occurred",
+				"error": "Password must be between 8 and 12 characters"
+			})
+			return;
+		}
+	} catch (e) {
 		res.send({
-			"code":400,
-			"Failed":"Error occurred",
-			"error" :"Password must be between 8 and 12 characters"
+			"code":500,
+			"Failed": "Error occurred",
+			"error": e
 		})
+		return;
 	}
 
 	const saltRounds = 10;
@@ -41,10 +51,11 @@ const register = async function(req,res){
 		encryptedPassword = await bcrypt.hash(password, saltRounds)
 	} catch (e) {
 		res.send({
-			"code":400,
-			"Failed":"Error occurred",
-			"error" :"Missing data"
+			"code":500,
+			"Failed": "Error occurred",
+			"error": "Missing data"
 		})
+		return;
 	}
 
 
@@ -60,20 +71,22 @@ const register = async function(req,res){
 		if (err) { 
 			if (err.code == "ER_DUP_ENTRY") {
 				res.send({
-					"code":400,
-					"Failed":"Error occurred",
-					"error" :"Username already registered"
+					"code":500,
+					"Failed": "Error occurred",
+					"error": "Username already registered"
 				})
+				return;
 			}
 			res.send({
-				"code":400,
-				"Failed":"Error occurred",
-				"error" : err.code
+				"code": 500,
+				"Failed": "Error occurred",
+				"error": err.code
 			})
+			return;
 		} else {
 			res.send({          
-				"code":200,          
-				"Success":"User registered sucessfully"            
+				"code": 200,          
+				"Success": "User registered sucessfully"            
 			});
 			console.log("User " + user.user_name + " registered!")
 		}    
