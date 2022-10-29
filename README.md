@@ -1,4 +1,5 @@
 # arnaCDN Server
+Currently under development... It's public but you shouldn't really use this, it's pretty bad, I'm just learning Node with this project.
 
 ## SQL Setup
 **USERS(user_id, user_name, user_nick, user_pw_hash)**
