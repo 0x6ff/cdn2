@@ -25,3 +25,23 @@ VALUE: user password string (unhashed)
 EXAMPLE: http://localhost:8080/files?user_name=arna13&user_pw=mySecretPass
 ```
 wip...
+
+## Setup
+
+Install npm dependencies
+```npm install```
+
+Setup the env variables for your system
+```
+cp .env.example .env
+nano .env
+chmod 600 .env
+```
+
+Run with node or npm
+```
+node .src/server.js
+```
+```
+npm run dev
+```
