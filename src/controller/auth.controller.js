@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-const mysql = require('mysql'); 
+const mysql = require('mysql');
 const envy = require('envy');
 const fs = require("fs");
 

@@ -1,8 +1,11 @@
 const cors = require("cors");
 const express = require("express");
+const envy = require('envy');
 const app = express();
 
-const saltRounds = 10;
+const env = envy();
+const PORT = env.port;
+const saltRounds = 13;
 
 
 global.__basedir = __dirname;
@@ -18,7 +21,7 @@ const initRoutes = require("./routes");
 app.use(express.urlencoded({ extended: true }));
 initRoutes(app);
 
-let port = 8080;
+let port = PORT;
 app.listen(port, () => {
 	console.log(`Running at localhost:${port}`);
 });
